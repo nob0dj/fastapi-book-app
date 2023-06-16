@@ -43,9 +43,9 @@ class Scrap(Base):
     book_isbn = Column(String, ForeignKey('book.isbn'), nullable=False)  # 자식테이블에 fk설정(두번째 인자로 전달)
     content = Column(String)
     created_at = Column(DateTime, default=datetime.now())
-    book = relationship('Book', back_populates='scraps')
+    book = relationship('Book', back_populates='scraps', lazy='joined')
     user_id = Column(String, ForeignKey('user.id'))
-    user = relationship('User', back_populates='scraps')
+    user = relationship('User', back_populates='scraps', lazy='joined')  # select(기본값) joined subquery selectin noload
 
     def __init__(self, **data):
         self.id = data['id'] if 'id' in data else None
